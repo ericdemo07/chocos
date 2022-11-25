@@ -9,7 +9,7 @@ import (
 
 const addrFormat = ":%s"
 
-func StartAPIServer(conf config.Config) {
+func StartAPIServer(conf config.Configurations) {
 	server := negroni.New(negroni.NewRecovery())
 
 	server.UseHandler(routes())

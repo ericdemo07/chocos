@@ -5,11 +5,24 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Config struct {
+type Configurations struct {
+	server      ServerConfigurations
+	database    DatabaseConfigurations
+	examplePath string
+	exampleVar  string
+}
+
+type ServerConfigurations struct {
 	port int
 }
 
-func Load() Config {
+type DatabaseConfigurations struct {
+	name     string
+	user     string
+	password string
+}
+
+func Load() Configurations {
 	viper.SetConfigName("application")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./")
@@ -20,11 +33,13 @@ func Load() Config {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	return Config{
-		port: extractIntOrDefault("APP_PORT", 3030),
+	return Configurations{
+		server: ServerConfigurations{
+			port: viper.GetInt("server.port"),
+		},
 	}
 }
 
-func (conf Config) Port() int {
-	return conf.port
+func (conf Configurations) Port() int {
+	return conf.server.port
 }
