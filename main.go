@@ -1,12 +1,14 @@
 package main
 
 import (
+	"example/hello/app"
 	"example/hello/config"
 	"example/hello/server"
-	"log"
-	"os"
 
 	"github.com/urfave/cli/v2"
+
+	"log"
+	"os"
 )
 
 const (
@@ -23,7 +25,8 @@ var startServerCmd = &cli.Command{
 }
 
 func startServerAction(c *cli.Context) error {
-	server.StartAPIServer(conf)
+	app.Init(conf)
+	server.StartAPIServer(conf.ServerConfiguration())
 	return nil
 }
 

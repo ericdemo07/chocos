@@ -9,12 +9,12 @@ import (
 
 const addrFormat = ":%s"
 
-func StartAPIServer(conf config.Configurations) {
+func StartAPIServer(conf config.ServerConfigurations) {
 	server := negroni.New(negroni.NewRecovery())
 
 	server.UseHandler(routes())
 
-	addr := fmt.Sprintf(addrFormat, strconv.Itoa(conf.Port()))
+	addr := fmt.Sprintf(addrFormat, strconv.Itoa(conf.Port))
 
 	server.Run(addr)
 }

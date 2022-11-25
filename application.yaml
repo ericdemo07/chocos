@@ -2,8 +2,9 @@ server:
   port: 3030
 
 database:
-  name: chocos_local
   host: localhost
+  port: 5432
+  dbname: chocos_local
   user: postgres
   password:
 

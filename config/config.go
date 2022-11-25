@@ -13,13 +13,15 @@ type Configurations struct {
 }
 
 type ServerConfigurations struct {
-	port int
+	Port int
 }
 
 type DatabaseConfigurations struct {
-	name     string
-	user     string
-	password string
+	Host     string
+	Port     string
+	DBName   string
+	User     string
+	Password string
 }
 
 func Load() Configurations {
@@ -35,11 +37,22 @@ func Load() Configurations {
 
 	return Configurations{
 		server: ServerConfigurations{
-			port: viper.GetInt("server.port"),
+			Port: viper.GetInt("server.port"),
+		},
+		database: DatabaseConfigurations{
+			Host:     viper.GetString("database.host"),
+			Port:     viper.GetString("database.port"),
+			DBName:   viper.GetString("database.dbname"),
+			User:     viper.GetString("database.user"),
+			Password: viper.GetString("database.password"),
 		},
 	}
 }
 
-func (conf Configurations) Port() int {
-	return conf.server.port
+func (conf Configurations) ServerConfiguration() ServerConfigurations {
+	return conf.server
+}
+
+func (conf Configurations) DatabaseConfig() DatabaseConfigurations {
+	return conf.database
 }
