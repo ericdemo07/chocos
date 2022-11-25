@@ -1,0 +1,9 @@
+APP_PORT: 3030
+
+DB_NAME: "chocos_local"
+DB_HOST: "localhost"
+DB_USER: "postgres"
+DB_PORT: 5432
+DB_PASSWORD: ""
+DB_POOL: 2
+DB_QUERY_TIMEOUT_MS: 12000

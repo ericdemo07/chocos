@@ -11,7 +11,7 @@ func routes() *mux.Router {
 
 	router.HandleFunc("/products", handlers.ProductsHandler).
 		Methods(http.MethodGet).
-		Name("TagInfo").
+		Name("GetProducts").
 		Schemes("http")
 
 	return router

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example/hello/config"
 	"example/hello/server"
 	"log"
 	"os"
@@ -12,6 +13,8 @@ const (
 	Revision = "fafafaf"
 )
 
+var conf = config.Load()
+
 var startServerCmd = &cli.Command{
 	Name:    "start",
 	Aliases: []string{"s"},
@@ -20,7 +23,7 @@ var startServerCmd = &cli.Command{
 }
 
 func startServerAction(c *cli.Context) error {
-	server.StartAPIServer()
+	server.StartAPIServer(conf)
 	return nil
 }
 

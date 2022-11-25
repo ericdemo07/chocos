@@ -1,11 +1,20 @@
 package server
 
-import "github.com/urfave/negroni"
+import (
+	"example/hello/config"
+	"fmt"
+	"github.com/urfave/negroni"
+	"strconv"
+)
 
-func StartAPIServer() {
-	println("hello111")
+const addrFormat = ":%s"
+
+func StartAPIServer(conf config.Config) {
 	server := negroni.New(negroni.NewRecovery())
 
 	server.UseHandler(routes())
-	server.Run("localhost:3030")
+
+	addr := fmt.Sprintf(addrFormat, strconv.Itoa(conf.Port()))
+
+	server.Run(addr)
 }
