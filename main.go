@@ -25,8 +25,8 @@ var startServerCmd = &cli.Command{
 }
 
 func startServerAction(c *cli.Context) error {
-	app.Init(conf)
-	server.StartAPIServer(conf.ServerConfiguration())
+	dependency := app.Init(conf)
+	server.StartAPIServer(dependency)
 	return nil
 }
 

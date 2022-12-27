@@ -1,7 +1,7 @@
 package server
 
 import (
-	"example/hello/config"
+	"example/hello/app"
 	"fmt"
 	"github.com/urfave/negroni"
 	"strconv"
@@ -9,12 +9,14 @@ import (
 
 const addrFormat = ":%s"
 
-func StartAPIServer(conf config.ServerConfigurations) {
+func StartAPIServer(dependency *app.Dependency) {
+	serverConfig := dependency.Config.ServerConfiguration()
+
 	server := negroni.New(negroni.NewRecovery())
 
-	server.UseHandler(routes())
+	server.UseHandler(routes(dependency))
 
-	addr := fmt.Sprintf(addrFormat, strconv.Itoa(conf.Port))
+	addr := fmt.Sprintf(addrFormat, strconv.Itoa(serverConfig.Port))
 
 	server.Run(addr)
 }

@@ -10,7 +10,7 @@ import (
 
 const databaseUrlFormat = "postgres://%s:%s@%s:%s/%s"
 
-func DatabaseConnection(conf config.DatabaseConfigurations) {
+func Connection(conf config.DatabaseConfigurations) *pgxpool.Pool {
 
 	databaseUrl := fmt.Sprintf(databaseUrlFormat, conf.User, conf.Password, conf.Host, conf.Port, conf.DBName)
 
@@ -21,11 +21,11 @@ func DatabaseConnection(conf config.DatabaseConfigurations) {
 		os.Exit(1)
 	}
 
-	defer dbPool.Close()
+	//defer dbPool.Close()
 
 	var greeting string
 
-	err = dbPool.QueryRow(context.Background(), "select 'Hello, world!'").Scan(&greeting)
+	err = dbPool.QueryRow(context.Background(), "select 'Hello, world 1!'").Scan(&greeting)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
@@ -33,4 +33,6 @@ func DatabaseConnection(conf config.DatabaseConfigurations) {
 	}
 
 	fmt.Println(greeting)
+
+	return dbPool
 }
